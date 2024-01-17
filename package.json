@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "set \"NODE_ENV=dev\" && nodemon server.js",
     "start:prod": "set \"NODE_ENV=prod\" && nodemon server.js"
-  },   
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/PS1112/SP-hospital-BE.git"
@@ -24,7 +24,9 @@
   },
   "homepage": "https://github.com/PS1112/SP-hospital-BE#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.7.0"
   },
   "devDependencies": {
     "dotenv": "^16.3.1",
