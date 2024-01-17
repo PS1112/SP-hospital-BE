@@ -1,7 +1,8 @@
 const express = require('express')
+// const conn = require("./db")
+// const userService = require("./modules/user/service/userService")
 const app = express()
 const env = process.env.NODE_ENV 
-console.log(env)
 if (env === "dev") {
     require('dotenv').config({path: "./local.env"})    
 } else {
@@ -9,10 +10,16 @@ if (env === "dev") {
 }
 const port = process.env.APP_PORT
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
+app.get("/",(req,res) => {
+  res.json({
+    status: "succes",
+    data: "hey there!!!..."
   })
-  
+})
+// app.post("/sign-up", (req,res) => {
+//   const userData = req.body
+//   const user = userService.registerUser(userData)
+// })
   app.listen(port, () => {
     console.log(`App running on port ${port}`)
   })
