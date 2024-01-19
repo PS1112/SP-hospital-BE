@@ -1,4 +1,4 @@
-const shared = require("./shared/sharedMethods")
+const shared = require("../../../shared/sharedMethods")
 const conn = require("../../../db")
 
 exports.registerUser = async (userData) => {

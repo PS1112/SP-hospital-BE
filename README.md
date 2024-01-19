@@ -26,6 +26,10 @@ also in package.json you have different commands for running your project on you
     "start:prod": "set \"NODE_ENV=prod\" && nodemon server.js"
   },
 
+Also for db structure refer to: https://dbdiagram.io/d/SP-Hospital-db-65a03cf4ac844320aebdb691
+
+for any further queries: 
+  🔗: https://www.linkedin.com/in/piyush-rajput-861ab0233/
 
 ### Prerequisites
 
