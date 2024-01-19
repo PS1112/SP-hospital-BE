@@ -1,7 +1,6 @@
-const express = require('express')
-// const conn = require("./db")
-// const userService = require("./modules/user/service/userService")
-const app = express()
+const conn = require("./db"
+)
+const app = require("./routes")
 const env = process.env.NODE_ENV 
 if (env === "dev") {
     require('dotenv').config({path: "./local.env"})    
@@ -16,10 +15,6 @@ app.get("/",(req,res) => {
     data: "hey there!!!..."
   })
 })
-// app.post("/sign-up", (req,res) => {
-//   const userData = req.body
-//   const user = userService.registerUser(userData)
-// })
   app.listen(port, () => {
     console.log(`App running on port ${port}`)
   })

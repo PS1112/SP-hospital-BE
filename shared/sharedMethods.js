@@ -6,6 +6,6 @@ if (env === "dev") {
     require('dotenv').config({path: "./prod.env"})    
 }
 
-exports.generateAccessToken = (username) => {
+exports.generateAuthToken = (username) => {
     return jwt.sign(username, process.env.JWT_SECRET, { expiresIn: '1d' });
   }

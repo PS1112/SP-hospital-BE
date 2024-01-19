@@ -25,7 +25,7 @@ conn.connect(function(err) {
     console.log(err)
   }
   else{
-    console.log("Connected!");
+    console.log("DB Connected!");
   }
 });
 
