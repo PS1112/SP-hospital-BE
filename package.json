@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/PS1112/SP-hospital-BE#readme",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.7.0"
