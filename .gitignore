@@ -131,3 +131,4 @@ dist
 local.env
 prod.env
 package-lock.json
+.prettierrc
