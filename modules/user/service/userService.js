@@ -44,49 +44,56 @@ exports.login = async (req,res) => {
 
     const {emailId, password} = req.body;
 
-    const sqlQuery = `SELECT * FROM user WHERE emailId = "${emailId}"`;
+    const sqlQuery = `SELECT firstName, lastName, username,  DATE_FORMAT(dob, '%d-%m-%Y') AS dob, gender, phoneNumber, emailId, password, role, onBoardingStep FROM user WHERE emailId = "${emailId}"`;
 
-    const userDetails = conn.query(sqlQuery,(err,result)=>{
-        if (err) {
-            res.json({
-                status: "failed",
-                code: err.code,
-                message:err.message
-            })
-        } else {
-            if(result.length < 1){
+    const userDetails = await new Promise((resolve, reject) => {
+        conn.query(sqlQuery,(err,result)=>{
+            if (err) {
                 res.json({
                     status: "failed",
-                    code: 404,
-                    message: "user with this email not found"
+                    code: err.code,
+                    message:err.message
                 })
+            } else {
+                if(result.length < 1){
+                    res.json({
+                        status: "failed",
+                        code: 404,
+                        message: "user with this email not found"
+                    })
+                }
+                resolve(result[0])
             }
-
-            const token = shared.generateAuthToken(result[0].username)
-
-            const response = {
-                firstName: result[0].firstName,
-                lastName: result[0].lastName,
-                username: result[0].username,
-                dob: result[0].dob,
-                gender: result[0].gender,
-                phoneNumber: result[0].phoneNumber,
-                emailId: result[0].emailId,
-                role: result[0].role,
-                onBoardingStep: result[0].onBoardingStep +=1 ,
-            }
-            res.json({
-                status: "success",
-                data: response,
-                token: token
-            })
-        }
+        })
     })
 
+    const hashedPassword = userDetails.password;
+    const compare = await shared.validateHashedPassword(password,hashedPassword);
 
-    // res.status(200).json({
-    //     status: "success",
-    //     data: sqlQuery
-    // })
-    
+    if (compare) {
+        const token = shared.generateAuthToken(userDetails.username)
+
+        const response = {
+            firstName: userDetails.firstName,
+            lastName: userDetails.lastName,
+            username: userDetails.username,
+            dob: userDetails.dob,
+            gender: userDetails.gender,
+            phoneNumber: userDetails.phoneNumber,
+            emailId: userDetails.emailId,
+            role: userDetails.role,
+            onBoardingStep: userDetails.onBoardingStep +=1 ,
+        }
+        res.json({
+            status: "success",
+            data: response,
+            token: token
+        })
+    } else {
+        res.status(500).json({
+            status: "failed",
+            code: 500,
+            message: "Invalid Password"
+        })
+    }    
 };

@@ -12,11 +12,20 @@ exports.generateAuthToken = (username) => {
   }
 
 exports.generateHashPassword = async (password) => {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        return hashedPassword
+    try {
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(password, salt);
+        return hashedPassword       
+    } catch (error) {
+        throw error;   
+    }
 }
 
 exports.validateHashedPassword = async (enterdPassord, hashedPassword) =>{
-    const result = await bcrypt.compare(enterdPassord, hashedPassword);
-    return result
+    try {
+        const result = await bcrypt.compare(enterdPassord, hashedPassword);
+        return result      
+    } catch (error) {
+        throw error;
+    }
 }
